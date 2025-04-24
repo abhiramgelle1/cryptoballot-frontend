@@ -1,70 +1,128 @@
-# Getting Started with Create React App
+# CryptoBallot Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A React single-page application for the CryptoBallot voting system.  
+Allows users to register, authenticate, cast encrypted votes (plain or blind-signed), view live results, and simulate security attacks.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## Table of Contents
 
-### `npm start`
+1. [Prerequisites](#prerequisites)  
+2. [Installation](#installation)  
+3. [Configuration](#configuration)  
+4. [Running the App](#running-the-app)  
+5. [Project Structure](#project-structure)  
+6. [System Architecture & Workflows](#system-architecture-and-workflows)
+7. [Pages & Features](#pages--features)  
+   - [Home](#1-home)  
+   - [Authentication](#2-authentication)  
+   - [Blind Signature Demo](#3-blind-signature-demo)  
+   - [Aggregation Demo](#4-aggregation-demo)  
+   - [Cast Vote](#5-cast-vote)  
+   - [Vote with Signature](#6-vote-with-signature)  
+   - [Results Tally](#7-results-tally)  
+   - [Live Attack Analysis](#8-live-attack-analysis)  
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Prerequisites
 
-### `npm test`
+- **Node.js** v16 or higher  
+- **npm** v8 or higher (or **Yarn**)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Verify installation:
+```bash
+node -v
+npm -v
+```
+## Installation
+Clone the repository
 
-### `npm run build`
+```
+git clone https://github.com/your-org/cryptoballot-frontend.git
+cd cryptoballot-frontend
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Install dependencies
+```
+npm install
+# or
+yarn install
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Configuration
+Edit **src/config.js** if your backend API is hosted elsewhere:
+```
+export const API_BASE_URL = 'http://localhost:8080'
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Running the App
+```
+npm start
+# or
+yarn start
+```
+Open your browser at http://localhost:3000.
 
-### `npm run eject`
+## Project Structure
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+![image](https://github.com/user-attachments/assets/c4dbcee8-c0e4-4cb0-bb9a-9b14991714e1)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## System Architecture and Workflows
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- High Level Diagram how defferent layers connected in my Application
 
-## Learn More
+![Screenshot 2025-04-22 101753](https://github.com/user-attachments/assets/0ea23dcf-0cd9-4139-84e8-581fb75ff7ee)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- Key Management persistence and Activeness throughout the entire session of Application
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+![Screenshot 2025-04-22 102146](https://github.com/user-attachments/assets/72f0a293-f7bb-4d8c-bae9-d04a8c6c2250)
 
-### Code Splitting
+- Different Workflows in an overview for casting vote:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+1. Casting vote [Paillier Encryption] Without Blind Sgnature
+![Screenshot 2025-04-22 102029](https://github.com/user-attachments/assets/db0ba013-41cd-4aeb-a3b5-067a75120a57)
+2. Casting vote [Paillier Encryption] With Blind Sgnature
+![Screenshot 2025-04-22 102105](https://github.com/user-attachments/assets/2d69a800-67a1-4c36-8b0d-dddfe49dc611)
 
-### Analyzing the Bundle Size
+## Pages & Features
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+1. Home
+A welcome page describing CryptoBallot and navigation.
 
-### Making a Progressive Web App
+3. Authentication
+Register new voters or log in (username & password).
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+4. Blind Signature Demo
+Demonstrates RSA blind-signature steps on a numeric message.
 
-### Advanced Configuration
+5. Aggregation Demo
+Encrypt values, aggregate them homomorphically, and decrypt the sum.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+6. Cast Vote
+Encrypt your vote value and submit with a plaintext candidate.
 
-### Deployment
+7. Vote with Signature
+Full flow: encrypt, blind, sign, unblind, and cast.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+8. Results Tally
+View system-wide totals and decrypt your personal votes.
 
-### `npm run build` fails to minify
+![Screenshot 2025-04-22 102840](https://github.com/user-attachments/assets/934a694e-97f8-463f-b801-0e9636b771ec)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+10. Live Attack Analysis
+Simulate replay, substitution, and injection attacks; view logs and charts.
+
+![Screenshot 2025-04-22 102913](https://github.com/user-attachments/assets/143a5c06-d7b6-451e-acf7-897839c3ff98)
+
+
+## Db Schema Overview
+
+- Need to connect with postgresql where already code configured.
+- Just need to add db with name `cryptoballotdb` in default postgres port 
+
+![Screenshot 2025-04-22 104041](https://github.com/user-attachments/assets/21f40114-779c-4b23-8e26-a688769fc5a1)
+![Screenshot 2025-04-22 104101](https://github.com/user-attachments/assets/f3090798-8e97-47a7-bd6e-12f00baf854e)
+
+
